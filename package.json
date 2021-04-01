@@ -1,0 +1,35 @@
+{
+  "name": "create-actyx",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "bin": "cli.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "microbundle -i src/index.ts --no-pkg-main --target=node -f=cjs --sourcemap=false --compress --alias worker_threads=@ascorbic/worker-threads-shim",
+    "watch": "microbundle -i src/index.ts --no-pkg-main --target=node -f=cjs --alias worker_threads=@ascorbic/worker-threads-shim --watch ",
+    "prepare": "npm run build"
+  },
+  "homepage": "https://github.com/actyx-contrib/create-actyx",
+  "files": [
+    "lib/index.js",
+    "cli.js"
+  ],
+  "devDependencies": {
+    "@ascorbic/worker-threads-shim": "^1.0.0",
+    "@types/fs-extra": "^9.0.9",
+    "@types/node": "^14.14.5",
+    "execa": "^4.1.0",
+    "microbundle": "^0.13.0",
+    "typescript": "^4.1.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/actyx-contrib/create-actyx.git"
+  },
+  "author": "Actyx AG",
+  "dependencies": {
+    "ansi-colors": "^4.1.1",
+    "fs-extra": "^9.1.0",
+    "tiny-spin": "^1.0.2"
+  }
+}
