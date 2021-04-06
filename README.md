@@ -20,4 +20,5 @@ npm init quickstart
 
 The following starters are available:
 
-- `quickstart`
+- `quickstart` (used in the quickstart)
+- `machine-demo` (used in the advanced tutorial)
