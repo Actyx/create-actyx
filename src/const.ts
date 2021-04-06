@@ -1,1 +1,4 @@
-export const DEFAULT_STARTER = "https://github.com/Actyx/DemoMachineKit.git"
+export const DEFAULT_STARTER = 'quickstart'
+export const STARTERS: { [name: string]: string } = {
+    quickstart: "https://github.com/Actyx/quickstart.git",
+}

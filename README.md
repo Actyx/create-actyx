@@ -1,11 +1,23 @@
-# create-actyx-quickstart (alpha)
+# create-actyx (alpha)
 
-Quickly initialize the Actyx Quickstart
+Create an Actyx Project using a starter template
 
-## Quick Overview
+## Usage
 
-Setup the Actyx Quickstart with the following command
+Load a starter project as follows
 
 ```shell
-npm init actyx-quickstart
+npm init actyx <starter-name>
 ```
+
+Example:
+
+```shell
+npm init quickstart
+```
+
+## Starters
+
+The following starters are available:
+
+- `quickstart`

@@ -4,7 +4,8 @@ import { reporter } from "./reporter"
 import fs from "fs-extra"
 import path from "path"
 import { clearLine } from "./utils"
-import { DEFAULT_STARTER } from './const'
+import { DEFAULT_STARTER, STARTERS } from "./const"
+
 
 const clone = async (
   url: string,
@@ -12,12 +13,11 @@ const clone = async (
   branch?: string
 ): Promise<void> => {
   const branchProps = branch ? [`-b`, branch] : []
-  const stop = spin(`Cloning quickstart repository`)
+  const stop = spin(`Loading starter project...`)
   const args = [
     `clone`,
     ...branchProps,
     url,
-    rootPath,
     `--recursive`,
     `--depth=1`,
     `--quiet`,
@@ -25,8 +25,7 @@ const clone = async (
 
   try {
     await execa(`git`, args)
-
-    reporter.success(`Loaded quickstart project`)
+    reporter.success(`Loaded starter project`)
   } catch (err) {
     reporter.panic(err.message)
   }
@@ -60,7 +59,6 @@ const install = async (
     await clearLine()
 
     reporter.success(`Installed dependencies`)
-    reporter.info(`Type 'cd actyx-quickstart && npm run start' to run`)
 
   } catch (e) {
     reporter.panic(e.message)
@@ -76,15 +74,21 @@ const ensureFolderDoesntExit = async (absPath: string): Promise<void> => {
 }
 
 const initStarter = async (
-  starter: string,
-  rootPath: string,
+  name: string,
+  repo: string,
 ): Promise<void> => {
-  const absPath = path.resolve(rootPath)
+  const absPath = path.resolve(name)
   await ensureFolderDoesntExit(absPath)
-  await clone(starter, absPath)
+  await clone(repo, absPath)
   await install(absPath)
+  reporter.info(`Type 'cd ${name} && npm run start' to run`)
 }
 
 export const run = async () => {
-  await initStarter(DEFAULT_STARTER, 'actyx-quickstart')
+  const starter = process.argv.length < 3 ? DEFAULT_STARTER : process.argv[2]
+
+  if (!Object.keys(STARTERS).includes(starter)) {
+    reporter.panic(`Error: unknown starter ${starter}`)
+  }
+  await initStarter(starter, STARTERS[starter])
 }
